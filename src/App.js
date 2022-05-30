@@ -15,7 +15,6 @@ function Incrementer() {
       `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=9f2719b9da8433e4284c2819c1e75cc2`
     )
       .then((response) => {
-        console.log(response.data);
         setWeatherData({
           description: response.data.weather[0].description,
           temp: response.data.main.temp,
