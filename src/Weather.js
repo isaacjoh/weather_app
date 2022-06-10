@@ -1,92 +1,53 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { Form, Button } from "react-bootstrap";
+import React  from "react";
+
 import sun from "./images/1.png"
-import rain from "./images/4.png"
+
 import { Card, ListGroup, ListGroupItem } from "react-bootstrap"
-
-function Weather() {
-  const [temp, setTemp] = useState(" ") ;
-  const [pressure, setPressure ] = useState('');
-  const [ humidity, setHumidity ] = useState('');
-  const [ visibility, setVisibility] = useState('');
-  const [city, setCityName ] = useState('');
-  const [ description, setDescription ] = useState('');
-  const [ showImage, setImage] = useState('');
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCalendarCheck, faChartBar, faDisplay, faGear, faMapLocationDot,  } from '@fortawesome/free-solid-svg-icons'
 
 
 
-
- const onFormSubmit = (event) => {
-    event.preventDefault();
-
-    const formData = new FormData(event.target),
-      formDataObj = Object.fromEntries(formData.entries());
-    console.log(formDataObj.cityName);
-
-    axios
-      .get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${formDataObj.cityName}&units=imperial&appid=9f2719b9da8433e4284c2819c1e75cc2`
-      )
-      .then((response) => {
-        console.log(response);
-        setTemp(response.data.main.temp)
-        setPressure(response.data.main.pressure)
-        setHumidity(response.data.main.humidity)
-        setVisibility(response.data.visibility)
-        setCityName(response.data.name)
-        setDescription(response.data.weather[0].description)
-        setImage(response.data.weather[0].main)
-      }).catch((err)=>{
-          setTemp('')
-      });
-  };
-  if ( showImage === 'Haze') {
-     <img src={sun} alt="weather" height={200} width={200} /> } else if ( showImage === "Thunderstorm") {
-      return <img src={rain} alt="weather" height={200} width={200} />
-    }
+function Weather({onFormSubmit, city, pressure, showImage, finalTemp, humidity, description, visibility}) {
+  
+ 
   
 
 
   return (
-    <div>
-      <Form onSubmit={onFormSubmit}>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Enter Your City</Form.Label>
-          <Form.Control type="text" placeholder="Enter City" name="cityName" />
-          <Form.Text className="text-muted">
-            Enter your city for Weather Informations.
-          </Form.Text>
-        </Form.Group>
-        <Button  variant="primary" type="submit">
-          Search City Weather
-        </Button>
-      </Form>
       
-      
-      <br />
-
-      
-     
-   
-        <Card style={ showImage === 'Clear' ? { backgroundImage: `url(${sun})`, width: '18em', height: "12em"} : {width: '18em', height: "12em" }} >
+    <div className="flex flex-row ml-10 mt-5">
+    
+   <div className="flex" >
+   <div className=" flex flex-col gap-10 h-screen w-16 mr-5">
+    
+   <FontAwesomeIcon icon={faChartBar} className="text-slate-500 border-2 hover:border-2 py-5 rounded-xl hover:bg-orange-400 hover:text-white"  />
+   <FontAwesomeIcon icon={faDisplay} className=" text-slate-500 border-2 hover:border-2 py-5 rounded-xl hover:bg-orange-400 hover:text-white" />
+   <FontAwesomeIcon icon={faMapLocationDot} className="text-slate-500 border-2 hover:border-2 py-5 rounded-xl hover:bg-orange-400 hover:text-white" />
+   <FontAwesomeIcon icon={faCalendarCheck} className="text-slate-500 border-2 hover:border-2 py-5 rounded-xl hover:bg-orange-400 hover:text-white" />
+   <FontAwesomeIcon icon={faGear} className="text-slate-500 border-2 hover:border-2 py-5 rounded-xl hover:bg-orange-400 hover:text-white" />
+      </div>
+        <Card
+        className="rounded-lg "
+        style={ showImage === 'Clear' ? {  backgroundImage: `url(${sun})`, width: '18em', height: "12em"} : {width: '18em', height: "12em" }} >
         
             <Card.Body>
-                <Card.Title>Whats the weather like in {city}</Card.Title>
-                <Card.Text className="">
-                <h1>{temp} °</h1>
-                    <h3>{description}</h3>
+                <Card.Title className="ml-3">Whats the weather in {city}</Card.Title>
+                <Card.Text className="flex flex-col ml-3 mt-5">
+                <h1 className="text-3xl font-bold">{finalTemp} °</h1>
+                    <h3 className="uppercase">{description}</h3>
                 </Card.Text>
             </Card.Body>
-            <ListGroup className="flex flex-row list-group-flush">
-                <ListGroupItem className="bg-blue-900 rounded-xl mx-2 text-white">Pressure {pressure}mb</ListGroupItem>
-                <ListGroupItem className="bg-lime-400 rounded-xl mx-2 px-1">Humidity {humidity}% </ListGroupItem>
-                <ListGroupItem className="bg-orange-600 rounded-xl mx-2">Visibility {visibility}mi</ListGroupItem>
+            <ListGroup className="flex flex-row list-group-flush mt-6 font-bold">
+                <ListGroupItem className="bg-blue-900 rounded-xl mx-2 text-white px-1">Pressure {pressure}mb</ListGroupItem>
+                <ListGroupItem className="bg-lime-400 rounded-xl mx-2 px-1 text-slate-800 text-center">Humidity {humidity}% </ListGroupItem>
+                <ListGroupItem className="bg-orange-600 rounded-xl mx-2 px-1 text-slate-800">Visibility {visibility}mi</ListGroupItem>
             </ListGroup>
             
         </Card>
-
+        
         </div>
+    </div>
 
     
   );

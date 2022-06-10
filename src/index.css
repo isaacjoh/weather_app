@@ -14,3 +14,12 @@ code {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.random-img{
+  background-image: url("https://source.unsplash.com/random/1000x800/?landscape");
+  height: 100vh;
+  width: 100%;
+  background-size:cover;
+  
+}
