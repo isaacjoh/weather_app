@@ -17,16 +17,16 @@ function Login() {
   };
 
   useEffect(() => {
-    if (user != null) {
-      navigate('home');
+    if (user ) {
+      navigate('../home');
     }
   
    
   }, [user, navigate])
-  
+ 
 
 
-
+console.log(user, "this is login")
   return (
     <div>
         <div 

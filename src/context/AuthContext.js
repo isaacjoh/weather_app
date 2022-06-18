@@ -29,10 +29,10 @@ export const AuthContextProvider = ({children}) => {
         unsubscribe();
     }
   }, []);
-  
+  console.log("this is ", auth)
     
     return (
-        <AuthContext.Provider  value={{googleSignIn}}>
+        <AuthContext.Provider  value={{googleSignIn, user: auth.currentUser}}>
             {children}
         </AuthContext.Provider>
     )
